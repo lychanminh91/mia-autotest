@@ -29,16 +29,46 @@ public class InformationPage
         await _page.ClickAsync($"//li[@data-dial-code='{attributeValue}']");
     }
 
-    public async Task FillInfo(string firstname, string lastname, string email, string phoneCode, string phoneNumber, string secondParentOption)
+    public async Task FillInfo(
+    string firstname = null,
+    string lastname = null,
+    string email = null,
+    string phoneCode = null,
+    string phoneNumber = null,
+    string secondParentOption = null)
     {
-        await FirstNameField.FillAsync(firstname);
-        await LastNameField.FillAsync(lastname);
-        await EmailField.FillAsync(email);
-        await SelectCustomDropdownOption(phoneCode);
-        await PhoneNumberField.FillAsync(phoneNumber);
-        await SecondParentDropdown.ClickAsync();
-        await SecondParentOption.FillAsync(secondParentOption);
-        await _page.Keyboard.PressAsync("Enter");
+        if (!string.IsNullOrEmpty(firstname))
+        {
+            await FirstNameField.FillAsync(firstname);
+        }
+
+        if (!string.IsNullOrEmpty(lastname))
+        {
+            await LastNameField.FillAsync(lastname);
+        }
+
+        if (!string.IsNullOrEmpty(email))
+        {
+            await EmailField.FillAsync(email);
+        }
+
+        if (!string.IsNullOrEmpty(phoneCode))
+        {
+            await SelectCustomDropdownOption(phoneCode);
+        }
+
+        if (!string.IsNullOrEmpty(phoneNumber))
+        {
+            await PhoneNumberField.FillAsync(phoneNumber);
+        }
+
+        if (!string.IsNullOrEmpty(secondParentOption))
+        {
+            await SecondParentDropdown.ClickAsync();
+            await SecondParentOption.FillAsync(secondParentOption);
+            await _page.Keyboard.PressAsync("Enter");
+        }
+
         await SocialChannelBox.ClickAsync();
         await StartDateDatePicker.ClickAsync();
         await _page.Keyboard.PressAsync("Enter");
